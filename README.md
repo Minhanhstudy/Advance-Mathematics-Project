@@ -1,7 +1,8 @@
 # Evaluating the Proximity of Logistics Facilities to Residential Neighbourhoods in the Netherlands Through Dynamical Systems and Monte Carlo Methods
 
 Project for *Advanced Mathematics for Business and Technology* (VUB). Individual project.
-**Website:** _TODO: add the URL of the published site (GitHub Pages, folder `docs/`)_
+
+**Website:** _https://minhanhstudy.github.io/logistics-proximity-nl/_
 
 *Terminology.* "Logistics facilities" are the logistics buildings larger than 500 m² of the
 dataset of Nefs (2022). "Residential neighbourhoods" are populated 500 m × 500 m grid cells
