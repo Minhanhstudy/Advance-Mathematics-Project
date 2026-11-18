@@ -1,0 +1,13 @@
+theta_inhabitants,null_model,observed_median_m,null_mean_m,null_95pct_low_m,null_95pct_high_m,mc_se_of_null_mean_m,p_closer,p_farther,p_two_sided,B
+5,N1a random estate (by area) + point,242.6542,296.3649,292.935,299.7766,0.0382,0.0005,1.0,0.001,2000
+5,N1b random estate (equal chance) + point,242.6542,226.3074,225.035,227.6801,0.0154,1.0,0.0005,0.001,2000
+5,N2 random point in own estate,242.6542,245.3292,244.1076,246.5198,0.0139,0.0005,1.0,0.001,2000
+100,N1a random estate (by area) + point,417.8795,584.025,575.0911,592.9408,0.101,0.0005,1.0,0.001,2000
+100,N1b random estate (equal chance) + point,417.8795,333.9305,330.089,337.8441,0.0449,1.0,0.0005,0.001,2000
+100,N2 random point in own estate,417.8795,426.2727,422.6385,429.9774,0.0424,0.0005,1.0,0.001,2000
+500,N1a random estate (by area) + point,646.0109,860.2476,850.2501,870.2532,0.1147,0.0005,1.0,0.001,2000
+500,N1b random estate (equal chance) + point,646.0109,570.9137,564.1854,577.7251,0.0762,1.0,0.0005,0.001,2000
+500,N2 random point in own estate,646.0109,658.5942,654.2141,663.0773,0.0524,0.0005,1.0,0.001,2000
+1000,N1a random estate (by area) + point,900.3212,1212.0443,1198.2077,1225.8571,0.1589,0.0005,1.0,0.001,2000
+1000,N1b random estate (equal chance) + point,900.3212,946.6935,933.8277,959.8731,0.1514,0.0005,1.0,0.001,2000
+1000,N2 random point in own estate,900.3212,913.5222,907.2287,919.486,0.0698,0.0005,1.0,0.001,2000
