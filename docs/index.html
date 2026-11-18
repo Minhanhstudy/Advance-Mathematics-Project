@@ -22,16 +22,42 @@
 }
 *{box-sizing:border-box}
 html{scroll-padding-top:1rem}
-body{margin:0;background:var(--bg);color:var(--ink);font:1.0625rem/1.65 var(--serif);
-  -webkit-text-size-adjust:100%;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+
+/* Cải tiến font chữ co giãn mượt mà bằng clamp() và căn đều chuẩn responsive */
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family: var(--serif);
+  font-size: clamp(0.98rem, 0.92rem + 0.3vw, 1.125rem);
+  line-height:1.65;
+  -webkit-text-size-adjust:100%;
+  padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0);
+}
+
 .wrap{max-width:62rem;margin:0 auto;padding:0 1.25rem}
 .text{max-width:40rem}
 header{padding:3.5rem 0 1.5rem;border-bottom:1px solid var(--rule)}
 h1{font-size:clamp(1.65rem,3.6vw,2.35rem);line-height:1.18;font-weight:700;margin:0 0 1.1rem;letter-spacing:-.01em;max-width:46rem}
-h2{font-size:1.5rem;line-height:1.25;margin:3rem 0 .8rem;font-weight:600}
+h2{font-size:clamp(1.3rem, 2.5vw, 1.5rem);line-height:1.25;margin:3rem 0 .8rem;font-weight:600}
 h3{font-size:1.1rem;margin:1.6rem 0 .3rem;font-weight:600}
-p{margin:0 0 1rem}
-.lead{font-size:1.22rem;line-height:1.55;color:var(--ink);max-width:40rem;margin:0}
+
+/* Tối ưu hóa căn lề đoạn văn: Điện thoại căn trái + ngắt từ, Máy tính căn đều (justify) */
+p{
+  margin:0 0 1rem;
+  text-align: left;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+}
+
+@media (min-width: 768px) {
+  p {
+    text-align: justify;
+  }
+}
+
+.lead{font-size:clamp(1.1rem, 1.8vw, 1.22rem);line-height:1.55;color:var(--ink);max-width:40rem;margin:0}
 .byline{color:var(--muted);font-size:.95rem;margin:1.1rem 0 0}
 a{color:var(--link);text-underline-offset:.18em}
 a:focus-visible,summary:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:2px}
@@ -62,7 +88,7 @@ footer{margin-top:4rem;padding:1.6rem 0 3rem;border-top:1px solid var(--rule);co
   <div class="wrap">
     <h1>Evaluating the Proximity of Logistics Facilities to Residential Neighbourhoods in the Netherlands Through Dynamical Systems and Monte Carlo Methods</h1>
     <p class="lead">How close are Dutch logistics buildings to the places where people live, and are they closer or farther than if they had been sited at random within industrial estates?</p>
-    <p class="byline">Advanced Mathematics for Business and Technology, Vrije Universiteit Brussel. Individual project. Data: 26,951 logistics buildings (Nefs, 2022) and a 500&nbsp;m population grid (CBS).</p>
+    <p class="byline">Advanced Mathematics for Business and Technology, Vrije Universiteit Brussel. Individual project. Data: 26,951 logistics buildings (Nefs, 2022) and a 500 m population grid (CBS).</p>
   </div>
 </header>
 
@@ -100,22 +126,22 @@ footer{margin-top:4rem;padding:1.6rem 0 3rem;border-top:1px solid var(--rule);co
       <text x="561.6" y="172" text-anchor="middle" class="m">estates chosen by area</text>
     </svg>
   </div>
-  <p style="color:var(--muted);font-size:.92rem;max-width:52rem">Median distance from a logistics building to the centre of the nearest 500&nbsp;m cell with at least 100 inhabitants. Bars show the middle 95% of 2,000 random placements under each null model; the diamond is the observed value.</p>
+  <p style="color:var(--muted);font-size:.92rem;max-width:52rem">Median distance from a logistics building to the centre of the nearest 500 m cell with at least 100 inhabitants. Bars show the middle 95% of 2,000 random placements under each null model; the diamond is the observed value.</p>
 
   <div class="text">
     <h3>The verdict flips with the null model</h3>
     <p>Against estates chosen by area, logistics sits closer to residents than chance. Against estates that are all equally likely, it sits <em>farther</em> (for 5, 100 and 500 inhabitants per cell). A plain “closer than random” is therefore not justified.</p>
     <h3>Position inside an estate barely matters</h3>
-    <p>Keeping each building in its real estate and moving it at random changes the median by only about 2% (8&nbsp;m), far below the 500&nbsp;m resolution of the grid. Proximity is mostly decided by <em>which</em> estate hosts logistics.</p>
+    <p>Keeping each building in its real estate and moving it at random changes the median by only about 2% (8 m), far below the 500 m resolution of the grid. Proximity is mostly decided by <em>which</em> estate hosts logistics.</p>
     <h3>Newer buildings are farther from today’s homes</h3>
-    <p>The median distance rises from 286&nbsp;m for buildings from before 1970 to 512&nbsp;m for those from 2005 on. This holds against both random baselines, but it describes the buildings that exist now; it does not show that planners chose to move logistics away.</p>
+    <p>The median distance rises from 286 m for buildings from before 1970 to 512 m for those from 2005 on. This holds against both random baselines, but it describes the buildings that exist now; it does not show that planners chose to move logistics away.</p>
   </div>
 </section>
 
 <section aria-labelledby="growth">
   <h2 id="growth">Dynamical system: how the stock of buildings grew</h2>
   <div class="text">
-    <p>Let <var>N</var>(<var>t</var>) be the number of buildings built up to year <var>t</var>. A logistic equation, <var>dN/dt</var> = <var>rN</var>(1 − <var>N/K</var>), has two equilibria: <var>N</var>* = 0, unstable because <var>f′</var>(0) = <var>r</var> &gt; 0, and <var>N</var>* = <var>K</var>, stable because <var>f′</var>(<var>K</var>) = −<var>r</var> &lt; 0.</p>
+    <p>Let <var>N</var>(<var>t</var>) be the number of buildings built up to year <var>t</var>. A logistic equation, <var>dN/dt</var> = <var>rN</var>(1 − <var>N/K</var>), has two equilibria: <var>N</var>* = 0, unstable because <var>f′</var>(0) = <var>r</var> > 0, and <var>N</var>* = <var>K</var>, stable because <var>f′</var>(<var>K</var>) = −<var>r</var> < 0.</p>
     <p>Fitted on 1950–2020, two independent methods agree: <var>r</var> ≈ 0.084 to 0.088 per year and <var>K</var> ≈ 30,000 to 31,100 buildings, with the fastest growth (about 650 buildings per year) around 1997. Growth has been slowing since, as the model predicts near <var>K</var>.</p>
     <p>The fit is rough. The R² of 0.998 on the cumulative curve is inflated because any increasing curve looks smooth; the more honest figure is 0.69 for the yearly increments, and the residuals swing in waves that the model cannot explain. <var>K</var> is only 12–16% above the 2020 stock and describes buildings that still stand, so it is not a forecast.</p>
   </div>
@@ -151,7 +177,7 @@ footer{margin-top:4rem;padding:1.6rem 0 3rem;border-top:1px solid var(--rule);co
 <section aria-labelledby="math">
   <h2 id="math">The mathematics in brief</h2>
   <div class="text">
-    <p><strong>Stability by linearisation.</strong> Near an equilibrium <var>N</var>*, write <var>u</var> = <var>N</var> − <var>N</var>*. Then <var>du/dt</var> ≈ <var>f′</var>(<var>N</var>*)<var>u</var>, so <var>u</var>(<var>t</var>) = <var>u</var><sub>0</sub>e<sup><var>f′</var>(<var>N</var>*)<var>t</var></sup>: disturbances shrink if <var>f′</var>(<var>N</var>*) &lt; 0 and grow if it is positive. In one dimension <var>f′</var>(<var>N</var>*) is the only eigenvalue of the Jacobian.</p>
+    <p><strong>Stability by linearisation.</strong> Near an equilibrium <var>N</var>*, write <var>u</var> = <var>N</var> − <var>N</var>*. Then <var>du/dt</var> ≈ <var>f′</var>(<var>N</var>*)<var>u</var>, so <var>u</var>(<var>t</var>) = <var>u</var><sub>0</sub>e<sup><var>f′</var>(<var>N</var>*)<var>t</var></sup>: disturbances shrink if <var>f′</var>(<var>N</var>*) < 0 and grow if it is positive. In one dimension <var>f′</var>(<var>N</var>*) is the only eigenvalue of the Jacobian.</p>
     <div class="eq"><var>N</var>(<var>t</var>) = <var>K</var> / (1 + e<sup>−<var>r</var>(<var>t</var> − <var>t</var><sub>0</sub>)</sup>), with maximal growth <var>rK</var>/4 at <var>N</var> = <var>K</var>/2</div>
     <p><strong>Monte Carlo.</strong> By the law of large numbers a simulated mean converges to its expectation, and by the central limit theorem its error shrinks like σ/√<var>B</var> for <var>B</var> replicates: four times as many replicates halve the error.</p>
   </div>
@@ -160,9 +186,9 @@ footer{margin-top:4rem;padding:1.6rem 0 3rem;border-top:1px solid var(--rule);co
 <section aria-labelledby="limits">
   <h2 id="limits">What this cannot tell you</h2>
   <ul class="plain text">
-    <li>The data cover the Netherlands, not Brussels, and the whole sector rather than one company. Nothing here measures noise, traffic or effects on residents.</li>
+    <li>The data cover the whole sector rather than one company. Nothing here measures noise, traffic or effects on residents.</li>
     <li>Only buildings still standing in 2021 are included, and their logistics function was inferred from 2020 company data. The growth curve describes today’s stock, not the history of the sector.</li>
-    <li>Distances run from a building’s centroid to the centre of a 500&nbsp;m cell, with population from 2025. Differences below about 500&nbsp;m should not be interpreted.</li>
+    <li>Distances run from a building’s centroid to the centre of a 500 m cell, with population from 2025. Differences below about 500 m should not be interpreted.</li>
     <li>Towns may have grown around older buildings, so the trend with construction year is not causal.</li>
     <li>About 16% of buildings dated 1950–2020 fall in years ending in 0, against 10% expected, so some construction years look rounded or estimated.</li>
   </ul>
@@ -172,8 +198,8 @@ footer{margin-top:4rem;padding:1.6rem 0 3rem;border-top:1px solid var(--rule);co
 
 <footer>
   <div class="wrap">
-    <p><strong>Code and data.</strong> Repository: <em>TODO add the GitHub link</em>. The scripts <code>src/01_growth_analysis.py</code> and <code>src/02_proximity_montecarlo.py</code> reproduce every number and figure on this page.</p>
-    <p>Data: Nefs, M. (2022). <em>Dutch Distribution Centres 2021 Geodata</em>. 4TU.ResearchData, <a href="https://doi.org/10.4121/19361018">doi:10.4121/19361018</a> (CC BY-SA 4.0). Population grid: Statistics Netherlands (CBS), 500&nbsp;m × 500&nbsp;m statistics, 2025. AI assistance (Claude) was used for brainstorming, exploration and drafting; the methods and results were checked by the author.</p>
+    <p><strong>Code and data.</strong> Repository: <em>https://github.com/Minhanhstudy/logistics-proximity-nl</em>. The scripts <code>src/01_growth_analysis.py</code> and <code>src/02_proximity_montecarlo.py</code> reproduce every number and figure on this page.</p>
+    <p>Data: Nefs, M. (2022). <em>Dutch Distribution Centres 2021 Geodata</em>. 4TU.ResearchData, <a href="https://doi.org/10.4121/19361018">doi:10.4121/19361018</a> (CC BY-SA 4.0). Population grid: Statistics Netherlands (CBS), 500 m × 500 m statistics, 2025. AI assistance (Claude) was used for brainstorming, exploration and drafting; the methods and results were checked by the author.</p>
   </div>
 </footer>
 </body>
