@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Proximity of logistics buildings to residential areas in the Netherlands</title>
+<title>Proximity of logistics buildings to residential neighbourhoods in the Netherlands</title>
 <meta name="description" content="A dynamical-systems and Monte Carlo analysis of 26,951 Dutch logistics buildings: how fast the stock grew, and how close it sits to where people live.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,62 +23,75 @@
 *{box-sizing:border-box}
 html{scroll-padding-top:1rem}
 
-/* Cải tiến font chữ co giãn mượt mà bằng clamp() và căn đều chuẩn responsive */
 body{
   margin:0;
   background:var(--bg);
   color:var(--ink);
   font-family: var(--serif);
-  font-size: clamp(0.98rem, 0.92rem + 0.3vw, 1.125rem);
-  line-height:1.65;
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  line-height:1.68;
   -webkit-text-size-adjust:100%;
   padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0);
 }
 
-.wrap{max-width:62rem;margin:0 auto;padding:0 1.25rem}
-.text{max-width:40rem}
-header{padding:3.5rem 0 1.5rem;border-bottom:1px solid var(--rule)}
-h1{font-size:clamp(1.65rem,3.6vw,2.35rem);line-height:1.18;font-weight:700;margin:0 0 1.1rem;letter-spacing:-.01em;max-width:46rem}
-h2{font-size:clamp(1.3rem, 2.5vw, 1.5rem);line-height:1.25;margin:3rem 0 .8rem;font-weight:600}
-h3{font-size:1.1rem;margin:1.6rem 0 .3rem;font-weight:600}
+.wrap{max-width:56rem;margin:0 auto;padding:0 1.5rem}
+.text{max-width:100%}
 
-/* Tối ưu hóa căn lề đoạn văn: Điện thoại căn trái + ngắt từ, Máy tính căn đều (justify) */
+header{padding:3.5rem 0 1.8rem;border-bottom:1px solid var(--rule)}
+
+h1{
+  font-size:clamp(1.65rem,3.4vw,2.3rem);
+  line-height:1.2;
+  font-weight:700;
+  margin:0 0 1.1rem;
+  letter-spacing:-.01em;
+  max-width:100%;
+}
+
+h2{font-size:clamp(1.3rem, 2.4vw, 1.55rem);line-height:1.25;margin:3rem 0 .9rem;font-weight:600}
+h3{font-size:1.12rem;margin:1.8rem 0 .4rem;font-weight:600}
+
 p{
-  margin:0 0 1rem;
+  margin:0 0 1.1rem;
   text-align: left;
-  hyphens: auto;
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
+  hyphens: none;
 }
 
 @media (min-width: 768px) {
-  p {
+  .text p, ul.plain li {
     text-align: justify;
   }
 }
 
-.lead{font-size:clamp(1.1rem, 1.8vw, 1.22rem);line-height:1.55;color:var(--ink);max-width:40rem;margin:0}
+.lead{
+  font-size:clamp(1.1rem, 1.6vw, 1.22rem);
+  line-height:1.58;
+  color:var(--ink);
+  max-width:100%;
+  margin:0;
+}
+
 .byline{color:var(--muted);font-size:.95rem;margin:1.1rem 0 0}
 a{color:var(--link);text-underline-offset:.18em}
 a:focus-visible,summary:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:2px}
-figure{margin:1.6rem 0 2rem}
+figure{margin:1.8rem 0 2.2rem}
 figure img{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--rule);border-radius:4px}
-figcaption{color:var(--muted);font-size:.92rem;margin-top:.6rem;max-width:52rem}
-.ruler{margin:1.8rem 0 .4rem;padding:1.2rem 1rem .6rem;background:var(--surface);border:1px solid var(--rule);border-radius:6px}
+figcaption{color:var(--muted);font-size:.92rem;margin-top:.6rem;max-width:100%}
+.ruler{margin:1.8rem 0 .6rem;padding:1.2rem 1rem .6rem;background:var(--surface);border:1px solid var(--rule);border-radius:6px}
 .ruler svg{display:block;width:100%;height:auto}
 .ruler text{font-family:var(--serif);fill:var(--ink);font-size:13px}
 .ruler .m{fill:var(--muted);font-size:11.5px}
-.table-scroll{overflow-x:auto;margin:1rem 0 1.4rem}
+.table-scroll{overflow-x:auto;margin:1.2rem 0 1.6rem}
 table{border-collapse:collapse;width:100%;min-width:34rem;font-size:.96rem;font-variant-numeric:tabular-nums}
-th,td{padding:.5rem .7rem;border-bottom:1px solid var(--rule);text-align:right}
+th,td{padding:.55rem .75rem;border-bottom:1px solid var(--rule);text-align:right}
 th:first-child,td:first-child{text-align:left}
 thead th{font-weight:600;border-bottom:2px solid var(--ink)}
 caption{caption-side:bottom;text-align:left;color:var(--muted);font-size:.9rem;padding-top:.5rem}
 code,var{font-family:var(--serif)}
 code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88em;background:var(--surface);border:1px solid var(--rule);padding:.05em .3em;border-radius:3px}
-.eq{margin:1rem 0;padding:.8rem 1rem;background:var(--surface);border-left:3px solid var(--blue);overflow-x:auto;font-size:1.05rem}
-ul.plain{padding-left:1.2rem;margin:0 0 1rem}
-ul.plain li{margin:.35rem 0}
+.eq{margin:1.2rem 0;padding:.9rem 1.1rem;background:var(--surface);border-left:3px solid var(--blue);overflow-x:auto;font-size:1.05rem}
+ul.plain{padding-left:1.25rem;margin:0 0 1.1rem}
+ul.plain li{margin:.45rem 0}
 footer{margin-top:4rem;padding:1.6rem 0 3rem;border-top:1px solid var(--rule);color:var(--muted);font-size:.93rem}
 .obs{color:var(--red);font-weight:600}
 </style>
