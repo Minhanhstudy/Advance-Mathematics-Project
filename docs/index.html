@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Proximity of logistics buildings to residential areas in the Netherlands</title>
+<title>Proximity of logistics buildings to residential neighbourhoods in the Netherlands</title>
 <meta name="description" content="A dynamical-systems and Monte Carlo analysis of 26,951 Dutch logistics buildings: how fast the stock grew, and how close it sits to where people live.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,239 +20,102 @@
     --blue:#7fb2e0; --red:#ef8173; --green:#6fc394; --amber:#e0a94f; --link:#8bbbe6;
   }
 }
+*{box-sizing:border-box}
+html{scroll-padding-top:1rem}
 
-*,*::before,*::after{box-sizing:border-box}
-html{
-  scroll-padding-top:1rem;
-  -webkit-text-size-adjust:100%;
-}
 body{
   margin:0;
   background:var(--bg);
   color:var(--ink);
-  font:1.0625rem/1.68 var(--serif);
-  padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0);
-  overflow-x:clip;
+  font-family: var(--serif);
+  /* Cỡ chữ co giãn linh hoạt từ điện thoại đến màn hình lớn */
+  font-size: clamp(1rem, 0.9rem + 0.35vw, 1.22rem);
+  line-height: 1.65;
+  -webkit-text-size-adjust: 100%;
+  padding: env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0);
 }
 
+/* Khung chứa trải rộng tràn đầy chiều ngang màn hình, lề hai bên co giãn linh hoạt */
 .wrap{
-  width:100%;
-  max-width:64rem;
-  margin-inline:auto;
-  padding-inline:clamp(1rem, 4vw, 2.5rem);
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 clamp(1.1rem, 4vw, 4rem);
 }
 
-.text{
-  max-width:44rem;
+/* Toàn bộ khối chữ, tiêu đề, chú thích mở rộng 100% theo khung */
+.text, h1, .lead, figcaption{
+  max-width: 100%;
 }
 
 header{
-  padding:clamp(2rem, 5vw, 3.5rem) 0 1.5rem;
-  border-bottom:1px solid var(--rule);
+  padding: clamp(2rem, 4vw, 3.5rem) 0 1.8rem;
+  border-bottom: 1px solid var(--rule);
 }
 
 h1{
-  font-size:clamp(1.55rem, 3.6vw, 2.35rem);
-  line-height:1.22;
-  font-weight:700;
-  margin:0 0 1.1rem;
-  letter-spacing:-.01em;
-  max-width:48rem;
-  word-break:normal;
-  overflow-wrap:break-word;
+  font-size: clamp(1.6rem, 3.2vw, 2.55rem);
+  line-height: 1.18;
+  font-weight: 700;
+  margin: 0 0 1.1rem;
+  letter-spacing: -.01em;
 }
 
 h2{
-  font-size:clamp(1.3rem, 2.5vw, 1.55rem);
-  line-height:1.28;
-  margin:2.8rem 0 .8rem;
-  font-weight:600;
-  overflow-wrap:break-word;
+  font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+  line-height: 1.25;
+  margin: 2.8rem 0 .9rem;
+  font-weight: 600;
 }
 
 h3{
-  font-size:1.12rem;
-  line-height:1.35;
-  margin:1.6rem 0 .35rem;
-  font-weight:600;
+  font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+  margin: 1.8rem 0 .4rem;
+  font-weight: 600;
 }
 
-h3.part{
-  font-size:1.25rem;
-  margin:2.6rem 0 .4rem;
-  padding-top:1rem;
-  border-top:1px solid var(--rule);
-}
-
-p, li{
-  margin:0 0 1rem;
-  text-align:left;
-  hyphens:none;
-  -webkit-hyphens:none;
-  word-break:normal;
-  overflow-wrap:break-word;
+/* Căn trái tự nhiên, không bị kéo giãn khoảng trắng hay ngắt chữ */
+p{
+  margin: 0 0 1.1rem;
+  text-align: left;
+  hyphens: none;
 }
 
 .lead{
-  font-size:clamp(1.1rem, 2vw, 1.24rem);
-  line-height:1.58;
-  color:var(--ink);
-  max-width:44rem;
-  margin:0;
+  font-size: clamp(1.08rem, 1.5vw, 1.3rem);
+  line-height: 1.58;
+  color: var(--ink);
+  margin: 0;
 }
 
 .byline{
-  color:var(--muted);
-  font-size:.95rem;
-  margin:1.1rem 0 0;
+  color: var(--muted);
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  margin: 1.1rem 0 0;
 }
 
-a{
-  color:var(--link);
-  text-underline-offset:.18em;
-  overflow-wrap:anywhere;
-}
-a:focus-visible,summary:focus-visible{
-  outline:3px solid var(--blue);
-  outline-offset:3px;
-  border-radius:2px;
-}
-
-.toc{
-  display:flex;
-  flex-wrap:wrap;
-  gap:.5rem 1.4rem;
-  margin:1.2rem 0 0;
-  font-size:.97rem;
-}
-
-figure{margin:1.6rem 0 2rem}
-figure img{
-  display:block;
-  width:100%;
-  height:auto;
-  background:#fff;
-  border:1px solid var(--rule);
-  border-radius:4px;
-}
-figcaption{
-  color:var(--muted);
-  font-size:.92rem;
-  margin-top:.6rem;
-  max-width:52rem;
-}
-
-.ruler{
-  margin:1.8rem 0 .5rem;
-  padding:1.1rem .9rem .6rem;
-  background:var(--surface);
-  border:1px solid var(--rule);
-  border-radius:6px;
-}
+a{color:var(--link);text-underline-offset:.18em}
+a:focus-visible,summary:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:2px}
+figure{margin:1.8rem 0 2.2rem}
+figure img{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--rule);border-radius:4px}
+figcaption{color:var(--muted);font-size:.92rem;margin-top:.6rem}
+.ruler{margin:1.8rem 0 .6rem;padding:1.2rem 1rem .6rem;background:var(--surface);border:1px solid var(--rule);border-radius:6px;overflow:visible}
 .ruler svg{display:block;width:100%;height:auto}
 .ruler text{font-family:var(--serif);fill:var(--ink);font-size:13px}
 .ruler .m{fill:var(--muted);font-size:11.5px}
-
-.table-scroll{
-  width:100%;
-  overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
-  margin:1rem 0 1.4rem;
-  border-radius:4px;
-}
-table{
-  border-collapse:collapse;
-  width:100%;
-  min-width:30rem;
-  font-size:.95rem;
-  font-variant-numeric:tabular-nums;
-}
-th,td{
-  padding:.55rem .7rem;
-  border-bottom:1px solid var(--rule);
-  text-align:right;
-  vertical-align:top;
-}
+.table-scroll{overflow-x:auto;margin:1.2rem 0 1.6rem}
+table{border-collapse:collapse;width:100%;min-width:34rem;font-size:.96rem;font-variant-numeric:tabular-nums}
+th,td{padding:.55rem .75rem;border-bottom:1px solid var(--rule);text-align:right}
 th:first-child,td:first-child{text-align:left}
-.left th,.left td{text-align:left}
-thead th{
-  font-weight:600;
-  border-bottom:2px solid var(--ink);
-  white-space:nowrap;
-}
-caption{
-  caption-side:bottom;
-  text-align:left;
-  color:var(--muted);
-  font-size:.9rem;
-  padding-top:.5rem;
-}
-
-var{font-family:var(--serif)}
-code{
-  font-family:ui-monospace,Menlo,Consolas,monospace;
-  font-size:.86em;
-  background:var(--surface);
-  border:1px solid var(--rule);
-  padding:.08em .32em;
-  border-radius:3px;
-  overflow-wrap:anywhere;
-}
-
-.eqn{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) auto;
-  align-items:center;
-  gap:1rem;
-  margin:.9rem 0 1.2rem;
-  padding:.65rem 1rem;
-  background:var(--surface);
-  border-left:3px solid var(--blue);
-  max-width:54rem;
-}
-.eqm{
-  min-width:0;
-  overflow-x:auto;
-  overflow-y:hidden;
-  -webkit-overflow-scrolling:touch;
-  padding:.25rem 0;
-}
-.eqm math{
-  font-size:1.12em;
-  white-space:nowrap;
-}
-math{font-size:1.06em}
-.eqn .no{
-  color:var(--muted);
-  font-size:.92rem;
-  font-variant-numeric:tabular-nums;
-  white-space:nowrap;
-}
-
-ul.plain{padding-left:1.25rem;margin:0 0 1rem}
-ul.plain li{margin:.4rem 0}
+thead th{font-weight:600;border-bottom:2px solid var(--ink)}
+caption{caption-side:bottom;text-align:left;color:var(--muted);font-size:.9rem;padding-top:.5rem}
+code,var{font-family:var(--serif)}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88em;background:var(--surface);border:1px solid var(--rule);padding:.05em .3em;border-radius:3px}
+.eq{margin:1.2rem 0;padding:.9rem 1.1rem;background:var(--surface);border-left:3px solid var(--blue);overflow-x:auto;font-size:1.05rem}
+ul.plain{padding-left:1.25rem;margin:0 0 1.1rem}
+ul.plain li{margin:.45rem 0;text-align:left}
+footer{margin-top:4rem;padding:1.6rem 0 3rem;border-top:1px solid var(--rule);color:var(--muted);font-size:.93rem}
 .obs{color:var(--red);font-weight:600}
-
-footer{
-  margin-top:4rem;
-  padding:1.6rem 0 3rem;
-  border-top:1px solid var(--rule);
-  color:var(--muted);
-  font-size:.93rem;
-}
-
-@media (max-width:48rem){
-  h2{margin-top:2.2rem}
-  .ruler{padding:.85rem .6rem .45rem}
-  .eqn{
-    grid-template-columns:minmax(0,1fr);
-    gap:.25rem;
-    padding:.55rem .75rem;
-  }
-  .eqn .no{justify-self:end}
-  .eqm math{font-size:1em}
-  th,td{padding:.45rem .55rem;font-size:.9rem}
-}
 </style>
 </head>
 <body>
@@ -260,8 +123,7 @@ footer{
   <div class="wrap">
     <h1>Evaluating the Proximity of Logistics Facilities to Residential Neighbourhoods in the Netherlands Through Dynamical Systems and Monte Carlo Methods</h1>
     <p class="lead">How close are Dutch logistics buildings to the places where people live, and are they closer or farther than if they had been sited at random within industrial estates?</p>
-    <p class="byline">Advanced Mathematics for Business and Technology, Vrije Universiteit Brussel. Individual project. Data: 26,951 logistics buildings (Nefs, 2022) and a 500 m population grid (CBS).</p>
-    <nav class="toc" aria-label="On this page"><a href="#answer">Answer</a><a href="#math">Mathematical background</a><a href="#growth">Growth model</a><a href="#mc">Monte Carlo test</a><a href="#limits">Limits</a></nav>
+    <p class="byline">Advanced Mathematics for Business and Technology, Vrije Universiteit Brussel. Individual project. Data: 26,951 logistics buildings (Nefs, 2022) and a 500 m population grid (CBS).</p>
   </div>
 </header>
 
@@ -299,53 +161,15 @@ footer{
       <text x="561.6" y="172" text-anchor="middle" class="m">estates chosen by area</text>
     </svg>
   </div>
-  <p style="color:var(--muted);font-size:.92rem;max-width:52rem">Median distance from a logistics building to the centre of the nearest 500 m cell with at least 100 inhabitants. Bars show the middle 95% of 2,000 random placements under each null model; the diamond is the observed value.</p>
+  <p style="color:var(--muted);font-size:.92rem">Median distance from a logistics building to the centre of the nearest 500 m cell with at least 100 inhabitants. Bars show the middle 95% of 2,000 random placements under each null model; the diamond is the observed value.</p>
 
   <div class="text">
     <h3>The verdict flips with the null model</h3>
     <p>Against estates chosen by area, logistics sits closer to residents than chance. Against estates that are all equally likely, it sits <em>farther</em> (for 5, 100 and 500 inhabitants per cell). A plain “closer than random” is therefore not justified.</p>
     <h3>Position inside an estate barely matters</h3>
-    <p>Keeping each building in its real estate and moving it at random changes the median by only about 2% (8 m), far below the 500 m resolution of the grid. Proximity is mostly decided by <em>which</em> estate hosts logistics.</p>
+    <p>Keeping each building in its real estate and moving it at random changes the median by only about 2% (8 m), far below the 500 m resolution of the grid. Proximity is mostly decided by <em>which</em> estate hosts logistics.</p>
     <h3>Newer buildings are farther from today’s homes</h3>
-    <p>The median distance rises from 286 m for buildings from before 1970 to 512 m for those from 2005 on. This holds against both random baselines, but it describes the buildings that exist now; it does not show that planners chose to move logistics away.</p>
-  </div>
-</section>
-
-<section aria-labelledby="math">
-  <h2 id="math">Mathematical background</h2>
-  <p class="text">Core equations and brief explanations for the growth model and the proximity test.</p>
-
-  <h3 class="part">Part 1. Dynamical systems</h3>
-  <p class="text"><var>N</var>(<var>t</var>) is the cumulative number of buildings at year <var>t</var>, <var>r</var> is the intrinsic growth rate, and <var>K</var> is the saturation cap. Equilibria occur where <var>dN/dt</var> = 0; stability follows from the sign of <var>f′</var>(<var>N*</var>) (negative is stable, positive is unstable).</p>
-  <div class="eqn"><div class="eqm"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mfrac><mrow><mi>d</mi><mi>N</mi></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo>=</mo><mi>r</mi><mi>N</mi><mo lspace="0" rspace="0">(</mo><mn>1</mn><mo>−</mo><mfrac><mrow><mi>N</mi></mrow><mrow><mi>K</mi></mrow></mfrac><mo lspace="0" rspace="0">)</mo><mo>,</mo><mspace width="2em"/><msup><mi>N</mi><mo>*</mo></msup><mo>∈</mo><mo>{</mo><mn>0</mn><mo lspace="0.1em" rspace="0.1em"> (unstable)</mo><mo>,</mo><mspace width="0.28em"/><mi>K</mi><mo lspace="0.1em" rspace="0.1em"> (stable)</mo><mo>}</mo></mrow></math></div><span class="no" id="eq-ode">(1)</span></div>
-
-  <p class="text">Solving by separation of variables gives the S-shaped logistic curve, where <var>t</var><sub>0</sub> is the midpoint year (<var>N</var> = <var>K</var>/2). Annual growth peaks at <var>N</var> = <var>K</var>/2.</p>
-  <div class="eqn"><div class="eqm"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>N</mi><mo form="prefix" stretchy="false" lspace="0" rspace="0">(</mo><mi>t</mi><mo form="postfix" stretchy="false" lspace="0" rspace="0">)</mo><mo>=</mo><mfrac><mrow><mi>K</mi></mrow><mrow><mn>1</mn><mo>+</mo><msup><mi>e</mi><mrow><mo>−</mo><mi>r</mi><mo form="prefix" stretchy="false" lspace="0" rspace="0">(</mo><mi>t</mi><mo>−</mo><msub><mi>t</mi><mn>0</mn></msub><mo form="postfix" stretchy="false" lspace="0" rspace="0">)</mo></mrow></msup></mrow></mfrac><mo>,</mo><mspace width="2em"/><munder><mi mathvariant="normal">max</mi><mi>N</mi></munder><mfrac><mrow><mi>d</mi><mi>N</mi></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo>=</mo><mfrac><mrow><mi>r</mi><mi>K</mi></mrow><mrow><mn>4</mn></mrow></mfrac></mrow></math></div><span class="no" id="eq-max">(2)</span></div>
-
-  <h3 class="part">Part 2. Monte Carlo simulation</h3>
-  <p class="text">With <var>B</var> = 2,000 simulated draws, the Monte Carlo mean estimates the expected value and its standard error shrinks at rate 1/√<var>B</var>.</p>
-  <div class="eqn"><div class="eqm"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mover accent="true"><mrow><mi>θ</mi></mrow><mo>^</mo></mover><mi>B</mi></msub><mo>=</mo><mfrac><mrow><mn>1</mn></mrow><mrow><mi>B</mi></mrow></mfrac><munderover><mo largeop="true" movablelimits="true">∑</mo><mrow><mi>b</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>B</mi></mrow></munderover><mi>g</mi><mo form="prefix" stretchy="false" lspace="0" rspace="0">(</mo><msub><mi>X</mi><mi>b</mi></msub><mo form="postfix" stretchy="false" lspace="0" rspace="0">)</mo><mo>,</mo><mspace width="2em"/><mi mathvariant="normal">SE</mi><mo form="prefix" stretchy="false" lspace="0" rspace="0">(</mo><msub><mover accent="true"><mrow><mi>θ</mi></mrow><mo>^</mo></mover><mi>B</mi></msub><mo form="postfix" stretchy="false" lspace="0" rspace="0">)</mo><mo>=</mo><mfrac><mrow><mi>s</mi></mrow><mrow><msqrt><mrow><mi>B</mi></mrow></msqrt></mrow></mfrac></mrow></math></div><span class="no" id="eq-mc">(3)</span></div>
-
-  <p class="text">For each building <var>i</var>, <var>d<sub>i</sub></var> is the distance to the nearest residential cell (population ≥ threshold), and <var>T</var> is the median across buildings. Under N1a, estates are sampled proportional to area <var>A<sub>k</sub></var>; under N1b, all <var>m</var> estates are equally likely; under N2, points stay in their own estate <var>k</var>(<var>i</var>).</p>
-  <div class="eqn"><div class="eqm"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>d</mi><mi>i</mi></msub><mo>=</mo><munder><mi mathvariant="normal">min</mi><mrow><mi>j</mi><mo>:</mo><mspace width="0.28em"/><msub><mi mathvariant="normal">pop</mi><mi>j</mi></msub><mo>≥</mo><mi>θ</mi></mrow></munder><mo stretchy="false" lspace="0" rspace="0">‖</mo><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><msub><mi>c</mi><mi>j</mi></msub><mo stretchy="false" lspace="0" rspace="0">‖</mo><mo>,</mo><mspace width="2em"/><mi>T</mi><mo>=</mo><mi mathvariant="normal">median</mi><mo form="prefix" stretchy="false" lspace="0" rspace="0">(</mo><msub><mi>d</mi><mn>1</mn></msub><mo>,</mo><mo>…</mo><mo>,</mo><msub><mi>d</mi><mi>n</mi></msub><mo form="postfix" stretchy="false" lspace="0" rspace="0">)</mo></mrow></math></div><span class="no" id="eq-stat">(4)</span></div>
-
-  <p class="text">Effect size <var>R</var> compares the observed median to the null mean (<var>R</var> < 1 means closer than random). Two-sided empirical p-values use (<var>B</var> + 1) in the denominator, with Bonferroni adjustment across <var>m</var> tests.</p>
-  <div class="eqn"><div class="eqm"><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>R</mi><mo>=</mo><mfrac><mrow><msub><mi>T</mi><mrow><mi mathvariant="normal">obs</mi></mrow></msub></mrow><mrow><msub><mover accent="true"><mrow><mi>T</mi></mrow><mo>¯</mo></mover><mn>0</mn></msub></mrow></mfrac><mo>,</mo><mspace width="2em"/><msub><mi>p</mi><mn>2</mn></msub><mo>=</mo><mi mathvariant="normal">min</mi><mo>{</mo><mn>1</mn><mo>,</mo><mspace width="0.28em"/><mn>2</mn><mi mathvariant="normal">min</mi><mo form="prefix" stretchy="false" lspace="0" rspace="0">(</mo><msub><mi>p</mi><mrow><mi mathvariant="normal">closer</mi></mrow></msub><mo>,</mo><mspace width="0.17em"/><msub><mi>p</mi><mrow><mi mathvariant="normal">farther</mi></mrow></msub><mo form="postfix" stretchy="false" lspace="0" rspace="0">)</mo><mo>}</mo><mo>,</mo><mspace width="2em"/><msub><mi>p</mi><mrow><mi mathvariant="normal">adj</mi></mrow></msub><mo>=</mo><mi mathvariant="normal">min</mi><mo form="prefix" stretchy="false" lspace="0" rspace="0">(</mo><mn>1</mn><mo>,</mo><mspace width="0.28em"/><mi>m</mi><mi>p</mi><mo form="postfix" stretchy="false" lspace="0" rspace="0">)</mo></mrow></math></div><span class="no" id="eq-ratio">(5)</span></div>
-
-  <h3 class="part">From formulas to numbers</h3>
-  <div class="table-scroll">
-    <table class="left">
-      <thead><tr><th>Quantity</th><th>Formula</th><th>Value in this project</th></tr></thead>
-      <tbody>
-        <tr><td>Growth rate</td><td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>r</mi></mrow></math> in <a href="#eq-ode">(1)</a></td><td>0.084 to 0.088 per year</td></tr>
-        <tr><td>Saturation level</td><td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>K</mi></mrow></math> in <a href="#eq-ode">(1)</a></td><td>30,000 to 31,100 buildings</td></tr>
-        <tr><td>Fastest growth</td><td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>r</mi><mi>K</mi><mo lspace="0.1em" rspace="0.1em">/</mo><mn>4</mn></mrow></math> in <a href="#eq-max">(2)</a></td><td>about 650 buildings per year, around 1997</td></tr>
-        <tr><td>Replicates</td><td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>B</mi></mrow></math> in <a href="#eq-mc">(3)</a></td><td>2,000 (smallest p = 0.0005)</td></tr>
-        <tr><td>Monte Carlo error</td><td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi>s</mi><mo lspace="0.1em" rspace="0.1em">/</mo><msqrt><mrow><mi>B</mi></mrow></msqrt></mrow></math> in <a href="#eq-mc">(3)</a></td><td>at most 0.16 m on a null mean (overall tests)</td></tr>
-        <tr><td>Observed median distance</td><td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>T</mi><mrow><mi mathvariant="normal">obs</mi></mrow></msub></mrow></math> in <a href="#eq-stat">(4)</a></td><td>418 m (at least 100 inhabitants)</td></tr>
-        <tr><td>Null means</td><td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mover accent="true"><mrow><mi>T</mi></mrow><mo>¯</mo></mover><mn>0</mn></msub></mrow></math> in <a href="#eq-ratio">(5)</a></td><td>584 m (N1a), 334 m (N1b), 426 m (N2)</td></tr>
-      </tbody>
-    </table>
+    <p>The median distance rises from 286 m for buildings from before 1970 to 512 m for those from 2005 on. This holds against both random baselines, but it describes the buildings that exist now; it does not show that planners chose to move logistics away.</p>
   </div>
 </section>
 
@@ -385,12 +209,21 @@ footer{
   </div>
 </section>
 
+<section aria-labelledby="math">
+  <h2 id="math">The mathematics in brief</h2>
+  <div class="text">
+    <p><strong>Stability by linearisation.</strong> Near an equilibrium <var>N</var>*, write <var>u</var> = <var>N</var> − <var>N</var>*. Then <var>du/dt</var> ≈ <var>f′</var>(<var>N</var>*)<var>u</var>, so <var>u</var>(<var>t</var>) = <var>u</var><sub>0</sub>e<sup><var>f′</var>(<var>N</var>*)<var>t</var></sup>: disturbances shrink if <var>f′</var>(<var>N</var>*) < 0 and grow if it is positive. In one dimension <var>f′</var>(<var>N</var>*) is the only eigenvalue of the Jacobian.</p>
+    <div class="eq"><var>N</var>(<var>t</var>) = <var>K</var> / (1 + e<sup>−<var>r</var>(<var>t</var> − <var>t</var><sub>0</sub>)</sup>), with maximal growth <var>rK</var>/4 at <var>N</var> = <var>K</var>/2</div>
+    <p><strong>Monte Carlo.</strong> By the law of large numbers a simulated mean converges to its expectation, and by the central limit theorem its error shrinks like σ/√<var>B</var> for <var>B</var> replicates: four times as many replicates halve the error.</p>
+  </div>
+</section>
+
 <section aria-labelledby="limits">
   <h2 id="limits">What this cannot tell you</h2>
   <ul class="plain text">
     <li>The data cover the whole sector rather than one company. Nothing here measures noise, traffic or effects on residents.</li>
     <li>Only buildings still standing in 2021 are included, and their logistics function was inferred from 2020 company data. The growth curve describes today’s stock, not the history of the sector.</li>
-    <li>Distances run from a building’s centroid to the centre of a 500 m cell, with population from 2025. Differences below about 500 m should not be interpreted.</li>
+    <li>Distances run from a building’s centroid to the centre of a 500 m cell, with population from 2025. Differences below about 500 m should not be interpreted.</li>
     <li>Towns may have grown around older buildings, so the trend with construction year is not causal.</li>
     <li>About 16% of buildings dated 1950–2020 fall in years ending in 0, against 10% expected, so some construction years look rounded or estimated.</li>
   </ul>
@@ -400,8 +233,8 @@ footer{
 
 <footer>
   <div class="wrap">
-    <p><strong>Code and data.</strong> Repository: <a href="https://github.com/Minhanhstudy/logistic-proximity-nl">github.com/Minhanhstudy/logistic-proximity-nl</a>. The scripts <code>src/01_growth_analysis.py</code> and <code>src/02_proximity_montecarlo.py</code> reproduce every number and figure on this page.</p>
-    <p>Data: Nefs, M. (2022). <em>Dutch Distribution Centres 2021 Geodata</em>. 4TU.ResearchData, <a href="https://doi.org/10.4121/19361018">doi:10.4121/19361018</a> (CC BY-SA 4.0). Population grid: Statistics Netherlands (CBS), 500 m × 500 m statistics, 2025. AI assistance (Claude) was used for brainstorming, exploration and drafting; the methods and results were checked by the author.</p>
+    <p><strong>Code and data.</strong> Repository: <em>https://github.com/Minhanhstudy/logistics-proximity-nl</em>. The scripts <code>src/01_growth_analysis.py</code> and <code>src/02_proximity_montecarlo.py</code> reproduce every number and figure on this page.</p>
+    <p>Data: Nefs, M. (2022). <em>Dutch Distribution Centres 2021 Geodata</em>. 4TU.ResearchData, <a href="https://doi.org/10.4121/19361018">doi:10.4121/19361018</a> (CC BY-SA 4.0). Population grid: Statistics Netherlands (CBS), 500 m × 500 m statistics, 2025. AI assistance (Claude) was used for brainstorming, exploration and drafting; the methods and results were checked by the author.</p>
   </div>
 </footer>
 </body>
