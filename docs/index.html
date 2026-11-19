@@ -20,63 +20,238 @@
     --blue:#7fb2e0; --red:#ef8173; --green:#6fc394; --amber:#e0a94f; --link:#8bbbe6;
   }
 }
-*{box-sizing:border-box}
-html{scroll-padding-top:1rem}
-body{margin:0;background:var(--bg);color:var(--ink);font:1.0625rem/1.65 var(--serif);
-  -webkit-text-size-adjust:100%;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
-.wrap{max-width:62rem;margin:0 auto;padding:0 1.25rem}
-.text{max-width:40rem}
-header{padding:3.5rem 0 1.5rem;border-bottom:1px solid var(--rule)}
-h1{font-size:clamp(1.65rem,3.6vw,2.35rem);line-height:1.18;font-weight:700;margin:0 0 1.1rem;letter-spacing:-.01em;max-width:46rem}
-h2{font-size:1.5rem;line-height:1.25;margin:3rem 0 .8rem;font-weight:600}
-h3{font-size:1.1rem;margin:1.6rem 0 .3rem;font-weight:600}
-p{margin:0 0 1rem}
-.lead{font-size:1.22rem;line-height:1.55;color:var(--ink);max-width:40rem;margin:0}
-.byline{color:var(--muted);font-size:.95rem;margin:1.1rem 0 0}
-a{color:var(--link);text-underline-offset:.18em}
-a:focus-visible,summary:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:2px}
+
+*,*::before,*::after{box-sizing:border-box}
+html{
+  scroll-padding-top:1rem;
+  -webkit-text-size-adjust:100%;
+}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font:1.0625rem/1.68 var(--serif);
+  padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0);
+  overflow-x:clip;
+}
+
+.wrap{
+  width:100%;
+  max-width:64rem;
+  margin-inline:auto;
+  padding-inline:clamp(1rem, 4vw, 2.5rem);
+}
+
+.text{
+  max-width:44rem;
+}
+
+header{
+  padding:clamp(2rem, 5vw, 3.5rem) 0 1.5rem;
+  border-bottom:1px solid var(--rule);
+}
+
+h1{
+  font-size:clamp(1.55rem, 3.6vw, 2.35rem);
+  line-height:1.22;
+  font-weight:700;
+  margin:0 0 1.1rem;
+  letter-spacing:-.01em;
+  max-width:48rem;
+  word-break:normal;
+  overflow-wrap:break-word;
+}
+
+h2{
+  font-size:clamp(1.3rem, 2.5vw, 1.55rem);
+  line-height:1.28;
+  margin:2.8rem 0 .8rem;
+  font-weight:600;
+  overflow-wrap:break-word;
+}
+
+h3{
+  font-size:1.12rem;
+  line-height:1.35;
+  margin:1.6rem 0 .35rem;
+  font-weight:600;
+}
+
+h3.part{
+  font-size:1.25rem;
+  margin:2.6rem 0 .4rem;
+  padding-top:1rem;
+  border-top:1px solid var(--rule);
+}
+
+p, li{
+  margin:0 0 1rem;
+  text-align:left;
+  hyphens:none;
+  -webkit-hyphens:none;
+  word-break:normal;
+  overflow-wrap:break-word;
+}
+
+.lead{
+  font-size:clamp(1.1rem, 2vw, 1.24rem);
+  line-height:1.58;
+  color:var(--ink);
+  max-width:44rem;
+  margin:0;
+}
+
+.byline{
+  color:var(--muted);
+  font-size:.95rem;
+  margin:1.1rem 0 0;
+}
+
+a{
+  color:var(--link);
+  text-underline-offset:.18em;
+  overflow-wrap:anywhere;
+}
+a:focus-visible,summary:focus-visible{
+  outline:3px solid var(--blue);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+.toc{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.5rem 1.4rem;
+  margin:1.2rem 0 0;
+  font-size:.97rem;
+}
+
 figure{margin:1.6rem 0 2rem}
-figure img{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--rule);border-radius:4px}
-figcaption{color:var(--muted);font-size:.92rem;margin-top:.6rem;max-width:52rem}
-.ruler{margin:1.8rem 0 .4rem;padding:1.2rem 1rem .6rem;background:var(--surface);border:1px solid var(--rule);border-radius:6px}
+figure img{
+  display:block;
+  width:100%;
+  height:auto;
+  background:#fff;
+  border:1px solid var(--rule);
+  border-radius:4px;
+}
+figcaption{
+  color:var(--muted);
+  font-size:.92rem;
+  margin-top:.6rem;
+  max-width:52rem;
+}
+
+.ruler{
+  margin:1.8rem 0 .5rem;
+  padding:1.1rem .9rem .6rem;
+  background:var(--surface);
+  border:1px solid var(--rule);
+  border-radius:6px;
+}
 .ruler svg{display:block;width:100%;height:auto}
 .ruler text{font-family:var(--serif);fill:var(--ink);font-size:13px}
 .ruler .m{fill:var(--muted);font-size:11.5px}
-.table-scroll{overflow-x:auto;margin:1rem 0 1.4rem}
-table{border-collapse:collapse;width:100%;min-width:34rem;font-size:.96rem;font-variant-numeric:tabular-nums}
-th,td{padding:.5rem .7rem;border-bottom:1px solid var(--rule);text-align:right}
-th:first-child,td:first-child{text-align:left}
-thead th{font-weight:600;border-bottom:2px solid var(--ink)}
-caption{caption-side:bottom;text-align:left;color:var(--muted);font-size:.9rem;padding-top:.5rem}
-code,var{font-family:var(--serif)}
-code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88em;background:var(--surface);border:1px solid var(--rule);padding:.05em .3em;border-radius:3px}
-.eq{margin:1rem 0;padding:.8rem 1rem;background:var(--surface);border-left:3px solid var(--blue);overflow-x:auto;font-size:1.05rem}
-ul.plain{padding-left:1.2rem;margin:0 0 1rem}
-ul.plain li{margin:.35rem 0}
-footer{margin-top:4rem;padding:1.6rem 0 3rem;border-top:1px solid var(--rule);color:var(--muted);font-size:.93rem}
-.obs{color:var(--red);font-weight:600}
-.eqn{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:1rem;margin:.9rem 0 1.2rem;padding:.55rem 1rem;background:var(--surface);border-left:3px solid var(--blue);overflow-x:auto;max-width:54rem}
-.eqm{min-width:0;overflow-x:auto;overflow-y:hidden;padding:.2rem 0}
-@media (max-width:40rem){.eqn{grid-template-columns:minmax(0,1fr);gap:.2rem}.eqn .no{justify-self:end}}
-.eqn .no{color:var(--muted);font-size:.92rem;font-variant-numeric:tabular-nums}
-.eqn math{font-size:1.12em}
-math{font-size:1.06em}
-h3.part{font-size:1.25rem;margin:2.6rem 0 .2rem;padding-top:1rem;border-top:1px solid var(--rule)}
-.left th,.left td{text-align:left}
-.toc{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;margin:1.2rem 0 0;font-size:.97rem}
 
-html,body{overflow-x:hidden;width:100%}
-.wrap{width:100%;max-width:62rem;margin-inline:auto;padding-inline:clamp(1rem,4vw,2.5rem)}
-.text p,section>p{text-align:justify;text-justify:inter-word;hyphens:auto}
-@media (max-width:48rem){
-  header{padding:2.2rem 0 1.2rem}
-  h2{margin-top:2.2rem}
-  .ruler{padding:.9rem .65rem .5rem}
-  .eqn{padding:.5rem .75rem}
-  .text p,section>p{text-align:left;hyphens:none}
+.table-scroll{
+  width:100%;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  margin:1rem 0 1.4rem;
+  border-radius:4px;
 }
-@media (min-width:64rem){
-  .wrap{max-width:68rem}
+table{
+  border-collapse:collapse;
+  width:100%;
+  min-width:30rem;
+  font-size:.95rem;
+  font-variant-numeric:tabular-nums;
+}
+th,td{
+  padding:.55rem .7rem;
+  border-bottom:1px solid var(--rule);
+  text-align:right;
+  vertical-align:top;
+}
+th:first-child,td:first-child{text-align:left}
+.left th,.left td{text-align:left}
+thead th{
+  font-weight:600;
+  border-bottom:2px solid var(--ink);
+  white-space:nowrap;
+}
+caption{
+  caption-side:bottom;
+  text-align:left;
+  color:var(--muted);
+  font-size:.9rem;
+  padding-top:.5rem;
+}
+
+var{font-family:var(--serif)}
+code{
+  font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:.86em;
+  background:var(--surface);
+  border:1px solid var(--rule);
+  padding:.08em .32em;
+  border-radius:3px;
+  overflow-wrap:anywhere;
+}
+
+.eqn{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  gap:1rem;
+  margin:.9rem 0 1.2rem;
+  padding:.65rem 1rem;
+  background:var(--surface);
+  border-left:3px solid var(--blue);
+  max-width:54rem;
+}
+.eqm{
+  min-width:0;
+  overflow-x:auto;
+  overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;
+  padding:.25rem 0;
+}
+.eqm math{
+  font-size:1.12em;
+  white-space:nowrap;
+}
+math{font-size:1.06em}
+.eqn .no{
+  color:var(--muted);
+  font-size:.92rem;
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+}
+
+ul.plain{padding-left:1.25rem;margin:0 0 1rem}
+ul.plain li{margin:.4rem 0}
+.obs{color:var(--red);font-weight:600}
+
+footer{
+  margin-top:4rem;
+  padding:1.6rem 0 3rem;
+  border-top:1px solid var(--rule);
+  color:var(--muted);
+  font-size:.93rem;
+}
+
+@media (max-width:48rem){
+  h2{margin-top:2.2rem}
+  .ruler{padding:.85rem .6rem .45rem}
+  .eqn{
+    grid-template-columns:minmax(0,1fr);
+    gap:.25rem;
+    padding:.55rem .75rem;
+  }
+  .eqn .no{justify-self:end}
+  .eqm math{font-size:1em}
+  th,td{padding:.45rem .55rem;font-size:.9rem}
 }
 </style>
 </head>
@@ -85,7 +260,7 @@ html,body{overflow-x:hidden;width:100%}
   <div class="wrap">
     <h1>Evaluating the Proximity of Logistics Facilities to Residential Neighbourhoods in the Netherlands Through Dynamical Systems and Monte Carlo Methods</h1>
     <p class="lead">How close are Dutch logistics buildings to the places where people live, and are they closer or farther than if they had been sited at random within industrial estates?</p>
-    <p class="byline">Advanced Mathematics for Business and Technology, Vrije Universiteit Brussel. Individual project. Data: 26,951 logistics buildings (Nefs, 2022) and a 500 m population grid (CBS).</p>
+    <p class="byline">Advanced Mathematics for Business and Technology, Vrije Universiteit Brussel. Individual project. Data: 26,951 logistics buildings (Nefs, 2022) and a 500 m population grid (CBS).</p>
     <nav class="toc" aria-label="On this page"><a href="#answer">Answer</a><a href="#math">Mathematical background</a><a href="#growth">Growth model</a><a href="#mc">Monte Carlo test</a><a href="#limits">Limits</a></nav>
   </div>
 </header>
@@ -124,15 +299,15 @@ html,body{overflow-x:hidden;width:100%}
       <text x="561.6" y="172" text-anchor="middle" class="m">estates chosen by area</text>
     </svg>
   </div>
-  <p style="color:var(--muted);font-size:.92rem;max-width:52rem">Median distance from a logistics building to the centre of the nearest 500 m cell with at least 100 inhabitants. Bars show the middle 95% of 2,000 random placements under each null model; the diamond is the observed value.</p>
+  <p style="color:var(--muted);font-size:.92rem;max-width:52rem">Median distance from a logistics building to the centre of the nearest 500 m cell with at least 100 inhabitants. Bars show the middle 95% of 2,000 random placements under each null model; the diamond is the observed value.</p>
 
   <div class="text">
     <h3>The verdict flips with the null model</h3>
     <p>Against estates chosen by area, logistics sits closer to residents than chance. Against estates that are all equally likely, it sits <em>farther</em> (for 5, 100 and 500 inhabitants per cell). A plain “closer than random” is therefore not justified.</p>
     <h3>Position inside an estate barely matters</h3>
-    <p>Keeping each building in its real estate and moving it at random changes the median by only about 2% (8 m), far below the 500 m resolution of the grid. Proximity is mostly decided by <em>which</em> estate hosts logistics.</p>
+    <p>Keeping each building in its real estate and moving it at random changes the median by only about 2% (8 m), far below the 500 m resolution of the grid. Proximity is mostly decided by <em>which</em> estate hosts logistics.</p>
     <h3>Newer buildings are farther from today’s homes</h3>
-    <p>The median distance rises from 286 m for buildings from before 1970 to 512 m for those from 2005 on. This holds against both random baselines, but it describes the buildings that exist now; it does not show that planners chose to move logistics away.</p>
+    <p>The median distance rises from 286 m for buildings from before 1970 to 512 m for those from 2005 on. This holds against both random baselines, but it describes the buildings that exist now; it does not show that planners chose to move logistics away.</p>
   </div>
 </section>
 
@@ -215,7 +390,7 @@ html,body{overflow-x:hidden;width:100%}
   <ul class="plain text">
     <li>The data cover the Netherlands, not Brussels, and the whole sector rather than one company. Nothing here measures noise, traffic or effects on residents.</li>
     <li>Only buildings still standing in 2021 are included, and their logistics function was inferred from 2020 company data. The growth curve describes today’s stock, not the history of the sector.</li>
-    <li>Distances run from a building’s centroid to the centre of a 500 m cell, with population from 2025. Differences below about 500 m should not be interpreted.</li>
+    <li>Distances run from a building’s centroid to the centre of a 500 m cell, with population from 2025. Differences below about 500 m should not be interpreted.</li>
     <li>Towns may have grown around older buildings, so the trend with construction year is not causal.</li>
     <li>About 16% of buildings dated 1950–2020 fall in years ending in 0, against 10% expected, so some construction years look rounded or estimated.</li>
   </ul>
@@ -226,7 +401,7 @@ html,body{overflow-x:hidden;width:100%}
 <footer>
   <div class="wrap">
     <p><strong>Code and data.</strong> Repository: <a href="https://github.com/Minhanhstudy/logistic-proximity-nl">github.com/Minhanhstudy/logistic-proximity-nl</a>. The scripts <code>src/01_growth_analysis.py</code> and <code>src/02_proximity_montecarlo.py</code> reproduce every number and figure on this page.</p>
-    <p>Data: Nefs, M. (2022). <em>Dutch Distribution Centres 2021 Geodata</em>. 4TU.ResearchData, <a href="https://doi.org/10.4121/19361018">doi:10.4121/19361018</a> (CC BY-SA 4.0). Population grid: Statistics Netherlands (CBS), 500 m × 500 m statistics, 2025. AI assistance (Claude) was used for brainstorming, exploration and drafting; the methods and results were checked by the author.</p>
+    <p>Data: Nefs, M. (2022). <em>Dutch Distribution Centres 2021 Geodata</em>. 4TU.ResearchData, <a href="https://doi.org/10.4121/19361018">doi:10.4121/19361018</a> (CC BY-SA 4.0). Population grid: Statistics Netherlands (CBS), 500 m × 500 m statistics, 2025. AI assistance (Claude) was used for brainstorming, exploration and drafting; the methods and results were checked by the author.</p>
   </div>
 </footer>
 </body>
